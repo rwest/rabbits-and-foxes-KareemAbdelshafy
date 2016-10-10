@@ -176,6 +176,80 @@ if rank ==0:
     print("Second peak (foxes) is {:.1f} with IQR [{:.1f}-{:.1f}] ".format(total_mean_foxes[0], total_lower_quartile_foxes[0], total_upper_quartile_foxes[0]))
 
 
+"""        
+if rank !=0:
+	comm.Send(mean_times[-1] , dest=0, tag=111)
+	comm.Send(mean_foxes[-1] , dest=0, tag=222)
+	comm.send(runs , dest=0, tag=333)       
+	#comm.send(dead_everything , dest=0, tag=444)  
+	comm.send(dead_foxes , dest=0, tag=555)    
+	comm.Send(lower_quartile_times[-1] , dest=0, tag=666)
+	comm.Send(upper_quartile_times[-1] , dest=0, tag=777)
+	comm.Send(lower_quartile_foxes[-1] , dest=0, tag=888)
+	comm.Send(upper_quartile_foxes[-1] , dest=0, tag=999)
+else:
+    
+    total_mean_times = mean_times[-1]
+    total_mean_foxes = mean_foxes[-1]
+    total_runs = runs
+    #total_dead_everything = dead_everything
+    total_dead_foxes = dead_foxes
+	total_lower_quartile_times = lower_quartile_times[-1]
+	total_upper_quartile_times = upper_quartile_times[-1]
+	total_lower_quartile_foxes = lower_quartile_foxes[-1]
+	total_upper_quartile_foxes = upper_quartile_foxes[-1]
+    
+    for i in range(1, size):
+        comm.Recv(mean_times, ANY_SOURCE , tag=111)
+        total_mean_times += mean_times
 
+        comm.Recv(mean_foxes, ANY_SOURCE , tag=222)
+        total_mean_foxes += mean_foxes    
+   
+        comm.recv(runs, ANY_SOURCE , tag=333)
+        total_runs += runs
+
+        #comm.recv(dead_everything, ANY_SOURCE , tag=444)
+        #total_dead_everything += dead_everything      
+  
+        comm.recv(dead_foxes, ANY_SOURCE , tag=555)
+        total_dead_foxes += dead_foxes      
+
+        comm.Recv(lower_quartile_times, ANY_SOURCE , tag=666)
+        total_lower_quartile_times += lower_quartile_times
+
+        comm.Recv(upper_quartile_times, ANY_SOURCE , tag=777)
+        total_upper_quartile_times += upper_quartile_times  
+
+        comm.Recv(lower_quartile_foxes, ANY_SOURCE , tag=888)
+        total_lower_quartile_foxes += lower_quartile_foxes
+
+        comm.Recv(upper_quartile_foxes , ANY_SOURCE , tag=999)
+        total_upper_quartile_foxes  += upper_quartile_foxes       
+        
+        
+    print("Number of total runs {}".format(total_runs))
+#    print("Everything died {} times out of {} or {:.1f}%".format(dead_everything, runs, 100*dead_everything/runs))
+    print("Foxes died {} times out of {} or {:.1f}%".format(total_dead_foxes, total_runs, 100*total_dead_foxes/total_runs))
+    print("Second peak (days) is {:.1f} with IQR [{:.1f}-{:.1f}] ".format(total_mean_times, total_lower_quartile_times, total_upper_quartile_times))
+    print("Second peak (foxes) is {:.1f} with IQR [{:.1f}-{:.1f}] ".format(total_mean_foxes, total_lower_quartile_foxes, upper_quartile_foxes))
+"""
+"""
+    plt.semilogx(mean_times,'-r')
+    plt.semilogx(upper_quartile_times,':r')
+    plt.semilogx(lower_quartile_times,':r')
+    plt.ylabel('Second peak time (days)')
+    plt.xlim(10)
+    plt.show()
+
+
+
+    plt.semilogx(mean_foxes,'-k')
+    plt.semilogx(upper_quartile_foxes,':k')
+    plt.semilogx(lower_quartile_foxes,':k')
+    plt.ylabel('Second peak foxes')
+    plt.xlim(10)
+    plt.show()
+"""
 
 
